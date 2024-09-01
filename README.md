@@ -18,7 +18,7 @@ In this app we are using Spring Data JPA for built-in methods to do CRUD operati
 - Postman (or any RESTful API testing tool)
 
 - Swagger can be launched in Browser: http://localhost:8080/createaccount/swagger-ui/index.html
-<img width="1535" alt="image" src="https://github.com/user-attachments/assets/84cc29aa-391e-4f08-9b4b-106d6651e905">
+<img width="1535" alt="image" src="https://github.com/user-attachments/assets/5137ba7f-0446-4e56-9c7d-a0812dd89277">
 
 
 - H2 Console On Browser: http://localhost:8080/createaccount/h2-console/
