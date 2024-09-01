@@ -14,12 +14,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Size(min = 3, max = 100)
-    @NotBlank(message = "Username cannot be blank")
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 3, max = 50)
     private String fullName;
 
+    @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", flags = Pattern.Flag.CASE_INSENSITIVE)
-    @NotEmpty(message = "Email cannot be empty")
     private String emailId;
 
     @Transient

@@ -495,3 +495,6 @@
 0:0:0:0:0:0:0:1 - - [01/Sep/2024:22:33:37 +0530] "POST /createaccount/h2-console/query.do?jsessionid=ae90cbf0dcdadc95da5e23a9d7bc0147 HTTP/1.1" 200 1151
 0:0:0:0:0:0:0:1 - - [01/Sep/2024:22:33:37 +0530] "GET /createaccount/h2-console/stylesheet.css HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [01/Sep/2024:22:33:37 +0530] "GET /createaccount/h2-console/table.js HTTP/1.1" 200 8887
+0:0:0:0:0:0:0:1 - - [01/Sep/2024:22:59:53 +0530] "POST /createaccount/users/ HTTP/1.1" 400 46
+0:0:0:0:0:0:0:1 - - [01/Sep/2024:23:00:04 +0530] "POST /createaccount/users/ HTTP/1.1" 400 46
+0:0:0:0:0:0:0:1 - - [01/Sep/2024:23:39:12 +0530] "POST /createaccount/users/ HTTP/1.1" 200 82

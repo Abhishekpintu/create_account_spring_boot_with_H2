@@ -57,7 +57,12 @@ public class UserManagementServiceImpl implements UserManagementService {
      */
     @Override
     public Response getUser(long id) {
-        return Response.successResponse(usersDAO.findById(id),Constants.FETCHED_SUCCESS);
+        Optional<User> userOptional = usersDAO.findById(id);
+        if (userOptional.isPresent()) {
+            return Response.successResponse(userOptional.get(), Constants.FETCHED_SUCCESS);
+        } else {
+            throw new CustomErrorException(Constants.MISSING_USER);
+        }
     }
 
     /**
@@ -98,7 +103,7 @@ public class UserManagementServiceImpl implements UserManagementService {
         existingUserObj.setEmailId(user.getEmailId());
         existingUserObj.setIsTermsAndConditionsAgreed(user.getIsTermsAndConditionsAgreed());
         usersDAO.saveAndFlush(existingUserObj);
-        return Response.successResponse(null,Constants.UPDATED_SUCCESS);
+        return Response.successResponse(existingUserObj,Constants.UPDATED_SUCCESS);
     }
 
     /**
@@ -116,6 +121,6 @@ public class UserManagementServiceImpl implements UserManagementService {
                 ReflectionUtils.setField(field, existingUserObj, value);
             });
              usersDAO.saveAndFlush(existingUserObj);
-             return Response.successResponse(null,Constants.UPDATED_SUCCESS);
+             return Response.successResponse(existingUserObj,Constants.UPDATED_SUCCESS);
         }
 }

@@ -3,6 +3,8 @@ package com.sample.createaccount.controllers;
 import com.sample.createaccount.model.Response;
 import com.sample.createaccount.model.User;
 import com.sample.createaccount.services.UserManagementService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,17 @@ public class UserController {
     @Autowired
     UserManagementService userManagementService;
 
+    @Operation(summary = "Create a new user",
+            description = "Create a new user account")
+    @ApiResponse(responseCode = "200", description = "Create a new user account")
     @PostMapping("/")
     public ResponseEntity<Response> registerUser(@Valid @RequestBody User user){
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.registerUser(user));
     }
 
+    @Operation(summary = "Fetch all users from DB",
+            description = "Fetch all users from DB")
+    @ApiResponse(responseCode = "200", description = "Fetch all users from DB")
     @GetMapping("/")
     public ResponseEntity<Response> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.getAllUsers());
