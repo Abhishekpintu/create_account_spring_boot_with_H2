@@ -25,5 +25,3 @@ In this app we are using Spring Data JPA for built-in methods to do CRUD operati
 <br/>
 
 ### Postman Collections:
-
-https://api.postman.com/collections/21039676-231a62d4-ad8d-485f-8bad-b6c3afd44b45?access_key=PMAT-01J6QHMAB3YS42MSBCQS88V139
