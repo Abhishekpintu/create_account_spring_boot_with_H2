@@ -16,6 +16,7 @@ In this app we are using Spring Data JPA for built-in methods to do CRUD operati
 - Eclipse or IntelliJ IDEA (or any preferred IDE) with embedded Maven
 - Maven 
 - Postman (or any RESTful API testing tool)
+- Tomcat
 
 - Swagger can be launched in Browser: http://localhost:8080/createaccount/swagger-ui/index.html
 <img width="1535" alt="image" src="https://github.com/user-attachments/assets/5137ba7f-0446-4e56-9c7d-a0812dd89277">
