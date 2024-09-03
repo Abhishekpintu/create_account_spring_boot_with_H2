@@ -31,6 +31,8 @@ In this app we are using Spring Data JPA for built-in methods to do CRUD operati
 - Repositories
 - Configurations
 - Service Implementations
+- <img width="1529" alt="image" src="https://github.com/user-attachments/assets/6a92d1cc-ed83-4321-b4c0-26d7f5aa7248">
+
 
 <br/>
 
