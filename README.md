@@ -14,14 +14,28 @@ In this app we are using Spring Data JPA for built-in methods to do CRUD operati
 
 ## Tools
 - Eclipse or IntelliJ IDEA (or any preferred IDE) with embedded Maven
-- Maven (version >= 3.6.0)
+- Maven 
 - Postman (or any RESTful API testing tool)
+- Tomcat
 
 - Swagger can be launched in Browser: http://localhost:8080/createaccount/swagger-ui/index.html
+<img width="1535" alt="image" src="https://github.com/user-attachments/assets/5137ba7f-0446-4e56-9c7d-a0812dd89277">
 
 
 - H2 Console On Browser: http://localhost:8080/createaccount/h2-console/
+<img width="1535" alt="image" src="https://github.com/user-attachments/assets/7c3975aa-2990-40a1-8a33-04c5ede8909d">
+
+## Test Coverage
+- Controllers
+- Models
+- Repositories
+- Configurations
+- Service Implementations
 
 <br/>
 
 ### Postman Collections:
+
+https://api.postman.com/collections/21039676-231a62d4-ad8d-485f-8bad-b6c3afd44b45?access_key=PMAT-01J6QHMAB3YS42MSBCQS88V139
+
+

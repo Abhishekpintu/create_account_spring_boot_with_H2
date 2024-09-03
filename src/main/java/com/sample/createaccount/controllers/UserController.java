@@ -36,21 +36,33 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.getAllUsers());
     }
 
+    @Operation(summary = "Fetch user based on user id",
+            description = "Fetch user based on user id")
+    @ApiResponse(responseCode = "200", description = "Fetch user based on user id")
     @GetMapping("/{id}")
     public ResponseEntity<Response> getUser(@PathVariable long id){
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.getUser(id));
     }
 
+    @Operation(summary = "Delete user based on user id",
+            description = "Delete user based on user id")
+    @ApiResponse(responseCode = "200", description = "Delete user based on user id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Response> deleteUser(@PathVariable long id){
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.deleteUser(id));
     }
 
+    @Operation(summary = "Update user based on user id",
+            description = "Update user based on user id")
+    @ApiResponse(responseCode = "200", description = "Delete user based on user id")
     @PutMapping("/{id}")
     public ResponseEntity<Response> updateUser(@PathVariable int id,@Valid @RequestBody User user){
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.updateUser(id,user));
     }
 
+    @Operation(summary = "Update user fields based on user id",
+            description = "Update user fields based on user id")
+    @ApiResponse(responseCode = "200", description = "Delete fields user based on user id")
     @PatchMapping("/{id}")
     public ResponseEntity<Response> updateUserFields(@PathVariable int id,@RequestBody Map<String, Object> fields){
         return ResponseEntity.status(HttpStatus.OK).body(userManagementService.updateUserFields(id,fields));
