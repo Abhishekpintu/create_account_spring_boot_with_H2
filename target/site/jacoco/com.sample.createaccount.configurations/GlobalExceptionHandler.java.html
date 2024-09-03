@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">createaccount</a> &gt; <a href="index.source.html" class="el_package">com.sample.createaccount.configurations</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.sample.createaccount.configurations;
+
+import com.sample.createaccount.model.ErrorResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@ControllerAdvice
+<span class="fc" id="L15">public class GlobalExceptionHandler {</span>
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleException(Exception ex) {
+<span class="fc" id="L19">        ErrorResponse errorResponse = new ErrorResponse();</span>
+<span class="fc" id="L20">        errorResponse.setMessage(&quot;An error occurred: &quot; + ex.getMessage());</span>
+<span class="fc" id="L21">        errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());</span>
+<span class="fc" id="L22">        return new ResponseEntity&lt;&gt;(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);</span>
+    }
+
+    @ExceptionHandler(CustomErrorException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleCustomException(CustomErrorException ex) {
+<span class="nc" id="L27">        ErrorResponse errorResponse = new ErrorResponse();</span>
+<span class="nc" id="L28">        errorResponse.setMessage(ex.getMessage());</span>
+<span class="nc" id="L29">        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());</span>
+
+<span class="nc" id="L31">        return new ResponseEntity&lt;&gt;(errorResponse, HttpStatus.BAD_REQUEST);</span>
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleValidationExceptions(MethodArgumentNotValidException ex) {
+<span class="nc" id="L36">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
+
+        // Extract field errors and their messages
+<span class="nc" id="L39">        ex.getBindingResult().getAllErrors().forEach(error -&gt; {</span>
+<span class="nc" id="L40">            String fieldName = ((FieldError) error).getField();</span>
+<span class="nc" id="L41">            String errorMessage = error.getDefaultMessage();</span>
+<span class="nc" id="L42">            errors.put(fieldName, errorMessage);</span>
+<span class="nc" id="L43">        });</span>
+
+        // Return a 400 Bad Request response with error details
+<span class="nc" id="L46">        return new ResponseEntity&lt;&gt;(errors, HttpStatus.BAD_REQUEST);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

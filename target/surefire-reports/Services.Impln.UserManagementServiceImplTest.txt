@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: Services.Impln.UserManagementServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.565 s -- in Services.Impln.UserManagementServiceImplTest

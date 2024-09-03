@@ -61,7 +61,21 @@ class UserTest {
         assertEquals(2, violations.size(), "Blank fullName should trigger a violation");
 
         ConstraintViolation<User> violation = violations.iterator().next();
-        assertEquals("Name cannot be blank", violation.getMessage());
+        // Extract messages
+        String actualMessage1 = violations.stream()
+                .filter(v -> v.getMessage().contains("Name cannot be blank"))
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("Message not found");
+
+        String actualMessage2 = violations.stream()
+                .filter(v -> v.getMessage().contains("size must be between 3 and 50"))
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("Message not found");
+        assertEquals("Name cannot be blank", actualMessage1);
+        assertEquals("size must be between 3 and 50", actualMessage2);
+
     }
 
     @Test
@@ -106,6 +120,18 @@ class UserTest {
         assertEquals(2, violations.size(), "Empty email should trigger a violation");
 
         ConstraintViolation<User> violation = violations.iterator().next();
-        assertEquals("Email cannot be empty", violation.getMessage());
-    }
+// Extract messages
+        String actualMessage1 = violations.stream()
+                .filter(v -> v.getMessage().contains("Email is not valid"))
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("Message not found");
+
+        String actualMessage2 = violations.stream()
+                .filter(v -> v.getMessage().contains("Email cannot be empty"))
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("Message not found");
+        assertEquals("Email is not valid", actualMessage1);
+        assertEquals("Email cannot be empty", actualMessage2);    }
 }

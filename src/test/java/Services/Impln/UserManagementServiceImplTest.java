@@ -61,6 +61,38 @@ class UserManagementServiceImplTest {
     }
 
     @Test
+    void testRegisterUserWithNullPassword() {
+        User user = new User();
+        user.setPassword(null);
+
+        // Call the method and expect an exception
+        CustomErrorException thrownException = assertThrows(
+                CustomErrorException.class,
+                () -> userManagementService.registerUser(user),
+                "Expected registerUser() to throw an exception"
+        );
+
+        // Verify the exception message
+        assertEquals(Constants.EMPTY_PASSSWORD, thrownException.getMessage());
+    }
+
+    @Test
+    void testRegisterUserWithEmptyPassword() {
+        User user = new User();
+        user.setPassword("");
+
+        // Call the method and expect an exception
+        CustomErrorException thrownException = assertThrows(
+                CustomErrorException.class,
+                () -> userManagementService.registerUser(user),
+                "Expected registerUser() to throw an exception"
+        );
+
+        // Verify the exception message
+        assertEquals(Constants.EMPTY_PASSSWORD, thrownException.getMessage());
+    }
+
+    @Test
     void testRegisterUser_EmailExists() {
         when(usersDAO.findByEmailId(testUser.getEmailId())).thenReturn(testUser);
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Response.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">createaccount</a> &gt; <a href="index.source.html" class="el_package">com.sample.createaccount.model</a> &gt; <span class="el_source">Response.java</span></div><h1>Response.java</h1><pre class="source lang-java linenums">package com.sample.createaccount.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Optional;
+
+@Getter
+@Setter
+<span class="fc" id="L10">public class Response {</span>
+
+    private String businessMessage;
+    private Boolean status;
+<span class="fc" id="L14">    private Object data = Optional.empty();</span>
+
+    public static Response successResponse(Object data, String message) {
+<span class="fc" id="L17">        Response response = new Response();</span>
+<span class="fc" id="L18">        response.setStatus(Boolean.TRUE);</span>
+<span class="fc" id="L19">        response.setBusinessMessage(message);</span>
+<span class="fc" id="L20">        response.setData(data);</span>
+<span class="fc" id="L21">        return response;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

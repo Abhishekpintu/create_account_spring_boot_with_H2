@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserManagementServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">createaccount</a> &gt; <a href="index.source.html" class="el_package">com.sample.createaccount.services.impln</a> &gt; <span class="el_source">UserManagementServiceImpl.java</span></div><h1>UserManagementServiceImpl.java</h1><pre class="source lang-java linenums">package com.sample.createaccount.services.impln;
+
+import com.sample.createaccount.common.Constants;
+import com.sample.createaccount.configurations.CustomErrorException;
+import com.sample.createaccount.model.Response;
+import com.sample.createaccount.model.User;
+import com.sample.createaccount.repo.UsersDAO;
+import com.sample.createaccount.services.UserManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
+import java.lang.reflect.Field;
+import java.util.*;
+
+@Service
+<span class="fc" id="L17">public class UserManagementServiceImpl implements UserManagementService {</span>
+
+    @Autowired
+    UsersDAO usersDAO;
+
+    /**
+     * Register user implementation method
+     * @param user obj
+     * @return Response obj
+     */
+    @Override
+    public Response registerUser(User user) {
+<span class="fc" id="L29">        User fetchedUser = usersDAO.findByEmailId(user.getEmailId());</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (fetchedUser != null) {</span>
+<span class="fc" id="L31">            throw new CustomErrorException(Constants.EMAIL_EXISTS);</span>
+        } else {
+<span class="fc bfc" id="L33" title="All 4 branches covered.">            if(user.getPassword()!=null &amp;&amp; !user.getPassword().isEmpty()) {</span>
+<span class="fc" id="L34">                user.setEncodedPassword(new BCryptPasswordEncoder().encode(user.getPassword()));</span>
+<span class="fc" id="L35">                usersDAO.saveAndFlush(user);</span>
+<span class="fc" id="L36">                return Response.successResponse(null, Constants.REG_SUCCESS);</span>
+            }
+            else{
+<span class="fc" id="L39">                throw new CustomErrorException(Constants.EMPTY_PASSSWORD);</span>
+            }
+        }
+    }
+
+    /**
+     * To get all registered user method
+     * @return Response obj with data array of users
+     */
+    @Override
+    public Response getAllUsers()  {
+<span class="fc" id="L50">        return Response.successResponse(usersDAO.findAll(),Constants.FETCHED_SUCCESS);</span>
+    }
+
+    /**
+     * Get a user by id method
+     * @param id userID
+     * @return object of user based on user id
+     */
+    @Override
+    public Response getUser(long id) {
+<span class="fc" id="L60">        Optional&lt;User&gt; userOptional = usersDAO.findById(id);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (userOptional.isPresent()) {</span>
+<span class="fc" id="L62">            return Response.successResponse(userOptional.get(), Constants.FETCHED_SUCCESS);</span>
+        } else {
+<span class="fc" id="L64">            throw new CustomErrorException(Constants.MISSING_USER);</span>
+        }
+    }
+
+    /**
+     *
+     * @param id user id
+     * @return Response obj success message
+     */
+    @Override
+    public Response deleteUser(long id)  {
+<span class="fc" id="L75">            User user = fecthUser(id);</span>
+<span class="fc" id="L76">            usersDAO.delete(user);</span>
+<span class="fc" id="L77">            return Response.successResponse(null,Constants.DELETE_SUCCESS);</span>
+    }
+
+    /**
+     * Method to fetch the user by iserid
+     * @param id user is
+     * @return user obj
+     */
+    private User fecthUser(long id){
+<span class="fc" id="L86">        Optional&lt;User&gt; userObj = usersDAO.findById(id);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if(userObj.isPresent()){</span>
+<span class="fc" id="L88">            return userObj.get();</span>
+        }
+        else{
+<span class="fc" id="L91">            throw new CustomErrorException(Constants.MISSING_USER);</span>
+        }
+    }
+
+    /**
+     * @param id user id
+     * @return response obj
+     */
+    @Override
+    public Response updateUser(long id, User user)  {
+<span class="fc" id="L101">        User existingUserObj = fecthUser(id);</span>
+<span class="fc" id="L102">        existingUserObj.setFullName(user.getFullName());</span>
+<span class="fc" id="L103">        existingUserObj.setEmailId(user.getEmailId());</span>
+<span class="fc" id="L104">        existingUserObj.setIsTermsAndConditionsAgreed(user.getIsTermsAndConditionsAgreed());</span>
+<span class="fc" id="L105">        usersDAO.saveAndFlush(existingUserObj);</span>
+<span class="fc" id="L106">        return Response.successResponse(existingUserObj,Constants.UPDATED_SUCCESS);</span>
+    }
+
+    /**
+     *
+     * @param id user id
+     * @param fields - fields to update
+     * @return success message
+     */
+    @Override
+    public Response updateUserFields(long id, Map&lt;String,Object&gt; fields)  {
+<span class="fc" id="L117">        User existingUserObj = fecthUser(id);</span>
+<span class="fc" id="L118">        fields.forEach((key, value) -&gt; {</span>
+<span class="fc" id="L119">                Field field = ReflectionUtils.findField(User.class, key);</span>
+<span class="fc" id="L120">                field.setAccessible(true);</span>
+<span class="fc" id="L121">                ReflectionUtils.setField(field, existingUserObj, value);</span>
+<span class="fc" id="L122">            });</span>
+<span class="fc" id="L123">             usersDAO.saveAndFlush(existingUserObj);</span>
+<span class="fc" id="L124">             return Response.successResponse(existingUserObj,Constants.UPDATED_SUCCESS);</span>
+        }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
